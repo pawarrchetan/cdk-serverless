@@ -1,0 +1,770 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resources Snapshot Created Successfully 1`] = `
+Object {
+  "Outputs": Object {
+    "MyTestStackwidgetsapiEndpoint2816A16E": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "MyTestStackwidgetsapiCC8268B6",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "MyTestStackwidgetsapiDeploymentStageprodABC4911D",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "AssetParameters2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032eArtifactHash7388AD9A": Object {
+      "Description": "Artifact hash for asset \\"2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032e\\"",
+      "Type": "String",
+    },
+    "AssetParameters2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032eS3Bucket2519E258": Object {
+      "Description": "S3 bucket for asset \\"2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032e\\"",
+      "Type": "String",
+    },
+    "AssetParameters2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032eS3VersionKey4D1E9B70": Object {
+      "Description": "S3 key for asset version \\"2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032e\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "MyTestStackWidgetHandlerDD602667": Object {
+      "DependsOn": Array [
+        "MyTestStackWidgetHandlerServiceRoleDefaultPolicyE5272672",
+        "MyTestStackWidgetHandlerServiceRole7D7A7CD7",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032eS3Bucket2519E258",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032eS3VersionKey4D1E9B70",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters2d2b25bd175796dc0917ee3014f2da63900e01055e3aaa6b906e8d7e0335032eS3VersionKey4D1E9B70",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "BUCKET": Object {
+              "Ref": "MyTestStackWidgetStore6A0DAB0B",
+            },
+          },
+        },
+        "Handler": "widgets.main",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerServiceRole7D7A7CD7",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs10.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MyTestStackWidgetHandlerServiceRole7D7A7CD7": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MyTestStackWidgetHandlerServiceRoleDefaultPolicyE5272672": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "MyTestStackWidgetStore6A0DAB0B",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "MyTestStackWidgetStore6A0DAB0B",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MyTestStackWidgetHandlerServiceRoleDefaultPolicyE5272672",
+        "Roles": Array [
+          Object {
+            "Ref": "MyTestStackWidgetHandlerServiceRole7D7A7CD7",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MyTestStackWidgetStore6A0DAB0B": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "MyTestStackwidgetsapiAccount8CA13706": Object {
+      "DependsOn": Array [
+        "MyTestStackwidgetsapiCC8268B6",
+      ],
+      "Properties": Object {
+        "CloudWatchRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackwidgetsapiCloudWatchRole74A2B07A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+    },
+    "MyTestStackwidgetsapiCC8268B6": Object {
+      "Properties": Object {
+        "Description": "This service serves Widgets",
+        "Name": "Widget Service",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "MyTestStackwidgetsapiCloudWatchRole74A2B07A": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MyTestStackwidgetsapiDeployment59C736A0c772c379ee02ecf0cf598fdb3783912c": Object {
+      "DependsOn": Array [
+        "MyTestStackwidgetsapiidDELETE6D3CE31D",
+        "MyTestStackwidgetsapiidGET56F3A522",
+        "MyTestStackwidgetsapiidPOSTBCE8CE86",
+        "MyTestStackwidgetsapiid0DD00330",
+        "MyTestStackwidgetsapiGETF17E14F1",
+      ],
+      "Properties": Object {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "MyTestStackwidgetsapiDeploymentStageprodABC4911D": Object {
+      "Properties": Object {
+        "DeploymentId": Object {
+          "Ref": "MyTestStackwidgetsapiDeployment59C736A0c772c379ee02ecf0cf598fdb3783912c",
+        },
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "MyTestStackwidgetsapiGETApiPermissionMyTestStackwidgetsapi838F6BB0GET34A8E7E3": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/",
+              Object {
+                "Ref": "MyTestStackwidgetsapiDeploymentStageprodABC4911D",
+              },
+              "/GET/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiGETApiPermissionTestMyTestStackwidgetsapi838F6BB0GET2507D4B6": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/test-invoke-stage/GET/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiGETF17E14F1": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "RequestTemplates": Object {
+            "application/json": "{ \\"statusCode\\": \\"200\\" }",
+          },
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "MyTestStackWidgetHandlerDD602667",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackwidgetsapiCC8268B6",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "MyTestStackwidgetsapiid0DD00330": Object {
+      "Properties": Object {
+        "ParentId": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackwidgetsapiCC8268B6",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "{id}",
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "MyTestStackwidgetsapiidDELETE6D3CE31D": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "DELETE",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "MyTestStackWidgetHandlerDD602667",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "MyTestStackwidgetsapiid0DD00330",
+        },
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "MyTestStackwidgetsapiidDELETEApiPermissionMyTestStackwidgetsapi838F6BB0DELETEid7FE88432": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/",
+              Object {
+                "Ref": "MyTestStackwidgetsapiDeploymentStageprodABC4911D",
+              },
+              "/DELETE/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiidDELETEApiPermissionTestMyTestStackwidgetsapi838F6BB0DELETEid7A04B6D6": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/test-invoke-stage/DELETE/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiidGET56F3A522": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "MyTestStackWidgetHandlerDD602667",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "MyTestStackwidgetsapiid0DD00330",
+        },
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "MyTestStackwidgetsapiidGETApiPermissionMyTestStackwidgetsapi838F6BB0GETid7825787E": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/",
+              Object {
+                "Ref": "MyTestStackwidgetsapiDeploymentStageprodABC4911D",
+              },
+              "/GET/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiidGETApiPermissionTestMyTestStackwidgetsapi838F6BB0GETid2FFC7B52": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/test-invoke-stage/GET/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiidPOSTApiPermissionMyTestStackwidgetsapi838F6BB0POSTid81A3D219": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/",
+              Object {
+                "Ref": "MyTestStackwidgetsapiDeploymentStageprodABC4911D",
+              },
+              "/POST/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiidPOSTApiPermissionTestMyTestStackwidgetsapi838F6BB0POSTid8D46BB3F": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "MyTestStackWidgetHandlerDD602667",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "MyTestStackwidgetsapiCC8268B6",
+              },
+              "/test-invoke-stage/POST/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MyTestStackwidgetsapiidPOSTBCE8CE86": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "POST",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "MyTestStackWidgetHandlerDD602667",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "MyTestStackwidgetsapiid0DD00330",
+        },
+        "RestApiId": Object {
+          "Ref": "MyTestStackwidgetsapiCC8268B6",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+  },
+}
+`;
